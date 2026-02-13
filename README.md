@@ -35,7 +35,14 @@ La forma más sencilla de correr el proyecto es usando Docker Compose, que levan
     cd muro-firmas-hackathon
     ```
 
-2.  **Iniciar los servicios**:
+4.  **Configurar Variables de Entorno**:
+    Copia el archivo de ejemplo y configura tus credenciales (críticas para seguridad):
+    ```bash
+    cp .env.example .env
+    # Edita .env con tus valores reales
+    ```
+
+5.  **Iniciar los servicios**:
     ```bash
     docker compose up --build
     ```
