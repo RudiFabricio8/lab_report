@@ -4,17 +4,19 @@ services:
     container_name: lab_report_db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: reportes_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres_2026
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # Pasamos la contraseña del usuario app para que el script de init la pueda usar
+      APP_READER_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./db:/docker-entrypoint-initdb.d/sql:ro
       - ./db/init/01-init.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres -d reportes_db" ]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -30,9 +32,9 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: 5432
-      DB_NAME: reportes_db
-      DB_USER: app_reader
-      DB_PASSWORD: reader_secure_2026
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
     depends_on:
       db:
         condition: service_healthy
