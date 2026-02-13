@@ -1,20 +1,11 @@
 import Link from 'next/link';
-import { getResumenDiario, getOrdenesPorStatus } from '@/lib/queries';
+import { getDashboardKPIs } from '@/lib/queries';
 
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-    // Obtener datos iniciales para KPIs
-    // Usamos un rango amplio o sin rango para obtener métricas generales
-    const resumenDiario = await getResumenDiario();
-    const ordenesStatus = await getOrdenesPorStatus();
-
-    // Calcular KPIs simples
-    const totalIngresos = resumenDiario.reduce((acc, dia) => acc + Number(dia.ingreso_del_dia), 0);
-    const totalOrdenes = resumenDiario.reduce((acc, dia) => acc + Number(dia.ordenes_del_dia), 0);
-
-    // Encontrar estado con más órdenes
-    const topStatus = ordenesStatus.length > 0 ? ordenesStatus[0].status_label : 'N/A';
+    // Obtener KPIs pre-calculados desde el backend
+    const kpis = await getDashboardKPIs();
 
     return (
         <div className="space-y-8">
@@ -28,20 +19,17 @@ export default async function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <KpiCard
                     title="Ingresos Totales"
-                    value={`$${totalIngresos.toLocaleString('en-US', { minimumFractionDigits: 2 })}`}
-                    icon="💰"
+                    value={`$${Number(kpis.total_ingresos).toLocaleString('en-US', { minimumFractionDigits: 2 })}`}
                     color="bg-green-50 text-green-700"
                 />
                 <KpiCard
                     title="Total Órdenes"
-                    value={totalOrdenes.toLocaleString()}
-                    icon="📦"
+                    value={Number(kpis.total_ordenes).toLocaleString()}
                     color="bg-blue-50 text-blue-700"
                 />
                 <KpiCard
                     title="Estado Principal"
-                    value={topStatus}
-                    icon="📊"
+                    value={kpis.top_status || 'N/A'}
                     color="bg-purple-50 text-purple-700"
                 />
             </div>
@@ -54,31 +42,26 @@ export default async function Home() {
                         href="/reports/sales-category"
                         title="Ventas por Categoría"
                         description="Analiza cuáles categorías generan más ingresos y volumen de ventas."
-                        icon="🛍️"
                     />
                     <ReportCard
                         href="/reports/top-products"
                         title="Productos Más Vendidos"
                         description="Ranking de productos top con detalles de stock e ingresos."
-                        icon="🏆"
                     />
                     <ReportCard
                         href="/reports/customer-summary"
                         title="Resumen de Clientes"
                         description="Identifica a tus mejores clientes (VIP) y sus hábitos de compra."
-                        icon="👥"
                     />
                     <ReportCard
                         href="/reports/order-status"
                         title="Estado de Órdenes"
                         description="Monitorea el flujo de pedidos desde pendiente hasta entregado."
-                        icon="🚚"
                     />
                     <ReportCard
                         href="/reports/daily-sales"
                         title="Ventas Diarias"
                         description="Seguimiento de ingresos día a día con acumulados."
-                        icon="📅"
                     />
                 </div>
             </div>
@@ -86,11 +69,11 @@ export default async function Home() {
     );
 }
 
-function KpiCard({ title, value, icon, color }: { title: string, value: string, icon: string, color: string }) {
+function KpiCard({ title, value, color }: { title: string, value: string, color: string }) {
     return (
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
-            <div className={`p-4 rounded-lg ${color} text-2xl`}>
-                {icon}
+            <div className={`p-4 rounded-lg ${color} text-xl font-bold`}>
+                $
             </div>
             <div>
                 <p className="text-sm font-medium text-gray-500">{title}</p>
@@ -100,12 +83,12 @@ function KpiCard({ title, value, icon, color }: { title: string, value: string, 
     );
 }
 
-function ReportCard({ href, title, description, icon }: { href: string, title: string, description: string, icon: string }) {
+function ReportCard({ href, title, description }: { href: string, title: string, description: string }) {
     return (
         <Link href={href} className="group block bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all">
             <div className="flex items-start justify-between mb-4">
-                <div className="p-3 bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors text-2xl">
-                    {icon}
+                <div className="p-3 bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
+                    <div className="w-6 h-6 bg-gray-200 rounded-sm group-hover:bg-blue-200 transition-colors"></div>
                 </div>
                 <span className="text-gray-400 group-hover:text-blue-500 transition-colors">↗</span>
             </div>
@@ -114,3 +97,4 @@ function ReportCard({ href, title, description, icon }: { href: string, title: s
         </Link>
     );
 }
+

@@ -112,3 +112,18 @@ export async function getResumenDiario(startDate?: string, endDate?: string) {
 
   return query<ResumenDiario>(sql, values);
 }
+
+export async function getDashboardKPIs() {
+  const result = await query<{
+    total_ingresos: number;
+    total_ordenes: number;
+    top_status: string;
+  }>(`
+    SELECT
+      (SELECT COALESCE(SUM(monto_total), 0) FROM vw_ordenes_por_status) as total_ingresos,
+      (SELECT COALESCE(SUM(cantidad), 0) FROM vw_ordenes_por_status) as total_ordenes,
+      (SELECT status_label FROM vw_ordenes_por_status ORDER BY cantidad DESC LIMIT 1) as top_status
+  `);
+  
+  return result[0] || { total_ingresos: 0, total_ordenes: 0, top_status: 'N/A' };
+}
