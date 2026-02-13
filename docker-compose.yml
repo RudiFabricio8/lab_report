@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: lab_report_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: reportes_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d/sql:ro
+      - ./db/init/01-init.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d reportes_db" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lab_report_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: reportes_db
+      DB_USER: app_reader
+      DB_PASSWORD: reader_secure_2026
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
