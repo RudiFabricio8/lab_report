@@ -11,12 +11,12 @@ const pool = new Pool({
   idleTimeoutMillis: 30_000,
 });
 
-export async function query<T extends Record<string, unknown>>(
+export async function query<T>(
   text: string,
   params?: (string | number)[],
 ): Promise<T[]> {
-  const { rows } = await pool.query<T>(text, params);
-  return rows;
+  const { rows } = await pool.query(text, params);
+  return rows as T[];
 }
 
 export default pool;
