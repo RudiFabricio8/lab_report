@@ -1,0 +1,75 @@
+﻿
+> lab-report-dashboard@1.0.0 build
+> next build
+
+   Ôû▓ Next.js 15.5.12
+   - Environments: .env
+
+   Creating an optimized production build ...
+ Ô£ô Compiled successfully in 8.9s
+   Linting and checking validity of types ...
+node.exe :  Ô¿» 
+ESLint: Converting 
+circular structure 
+to JSON     --> 
+starting at object 
+with constructor 
+'Object'     |     
+property 'configs' 
+-> object with 
+constructor 'Object' 
+    |     property 
+'flat' -> object 
+with constructor 
+'Object'     |     
+...     |     
+property 'plugins' 
+-> object with 
+constructor 'Object' 
+    --- property 
+'react' closes the 
+circle Referenced 
+from: C:\Users\E5570\
+OneDrive\Documentos\l
+ab_report\.eslintrc.j
+son
+En línea: 1 
+Carácter: 1
++ & "C:\nvm4w\nodejs/
+node.exe" "C:\nvm4w\n
+odejs/node_modules/np
+m/bin/np ...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: ( Ô¿» ES   
+ Lint: Co...\.esl    
+intrc.json:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+   Collecting page data ...
+   Generating static pages (0/3) ...
+ Ô£ô Generating static pages (3/3)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+Ôöî ãÆ /                                      165 B         106 kB
+Ôö£ Ôùï /_not-found                            993 B         103 kB
+Ôöö ãÆ /reports/[id]                          165 B         106 kB
++ First Load JS shared by all             102 kB
+  Ôö£ chunks/255-ebd51be49873d76c.js         46 kB
+  Ôö£ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  Ôöö other shared chunks (total)          1.96 kB
+
+
+Ôùï  (Static)   prerendered as static content
+ãÆ  (Dynamic)  server-rendered on demand
+

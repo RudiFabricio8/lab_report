@@ -1,0 +1,157 @@
+﻿#1 [internal] load local bake definitions
+#1 reading from stdin 548B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 858B 0.0s done
+#2 DONE 0.0s
+
+#3 [auth] library/node:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/node:20-alpine
+#4 DONE 0.9s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 160B 0.0s done
+#5 DONE 0.0s
+
+#6 [deps 1/4] FROM docker.io/library/node:20-alpine@sha256:09e2b3d9726018aecf269bd35325f46bf75046a643a66d28360ec71132750ec8
+#6 resolve docker.io/library/node:20-alpine@sha256:09e2b3d9726018aecf269bd35325f46bf75046a643a66d28360ec71132750ec8 0.0s done
+#6 DONE 0.0s
+
+#7 [deps 2/4] WORKDIR /app
+#7 CACHED
+
+#8 [runner 3/6] RUN addgroup --system --gid 1001 nodejs &&     adduser  --system --uid 1001 nextjs
+#8 CACHED
+
+#9 [internal] load build context
+#9 transferring context: 256.40kB 0.1s done
+#9 DONE 0.1s
+
+#7 [deps 2/4] WORKDIR /app
+#7 CACHED
+
+#10 [deps 3/4] COPY package.json package-lock.json* ./
+#10 DONE 0.1s
+
+#11 [deps 4/4] RUN npm ci
+#11 31.92 
+#11 31.92 added 382 packages, and audited 383 packages in 31s
+#11 31.92 
+#11 31.92 147 packages are looking for funding
+#11 31.92   run `npm fund` for details
+#11 31.92 
+#11 31.92 found 0 vulnerabilities
+#11 31.92 npm notice
+#11 31.92 npm notice New major version of npm available! 10.8.2 -> 11.10.0
+#11 31.92 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.10.0
+#11 31.92 npm notice To update run: npm install -g npm@11.10.0
+#11 31.92 npm notice
+#11 DONE 32.8s
+
+#12 [builder 3/5] COPY --from=deps /app/node_modules ./node_modules
+#12 DONE 8.0s
+
+#13 [builder 4/5] COPY . .
+#13 DONE 0.4s
+
+#14 [builder 5/5] RUN npm run build
+#14 1.149 
+#14 1.149 > lab-report-dashboard@1.0.0 build
+#14 1.149 > next build
+#14 1.149 
+#14 2.990    Ôû▓ Next.js 15.5.12
+#14 2.990 
+#14 3.062    Creating an optimized production build ...
+#14 23.55  Ô£ô Compiled successfully in 14.6s
+#14 23.55    Linting and checking validity of types ...
+#14 26.94  Ô¿» ESLint: Converting circular structure to JSON     --> starting at object with constructor 'Object'     |     property 'configs' -> object with constructor 'Object'     |     property 'flat' -> object with constructor 'Object'     |     ...     |     property 'plugins' -> object with constructor 'Object'     --- property 'react' closes the circle Referenced from: /app/.eslintrc.json
+#14 29.32    Collecting page data ...
+#14 32.53    Generating static pages (0/3) ...
+#14 33.78  Ô£ô Generating static pages (3/3)
+#14 35.54    Finalizing page optimization ...
+#14 35.54    Collecting build traces ...
+#14 73.06 
+#14 73.07 Route (app)                                 Size  First Load JS
+#14 73.07 Ôöî ãÆ /                                      165 B         106 kB
+#14 73.07 Ôö£ Ôùï /_not-found                            991 B         103 kB
+#14 73.07 Ôöö ãÆ /reports/[id]                          165 B         106 kB
+#14 73.07 + First Load JS shared by all             102 kB
+#14 73.07   Ôö£ chunks/255-ebd51be49873d76c.js         46 kB
+#14 73.07   Ôö£ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+#14 73.07   Ôöö other shared chunks (total)           1.9 kB
+#14 73.07 
+#14 73.07 
+#14 73.07 Ôùï  (Static)   prerendered as static content
+#14 73.07 ãÆ  (Dynamic)  server-rendered on demand
+#14 73.07 
+#14 73.20 npm notice
+#14 73.20 npm notice New major version of npm available! 10.8.2 -> 11.10.0
+#14 73.20 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.10.0
+#14 73.20 npm notice To update run: npm install -g npm@11.10.0
+#14 73.20 npm notice
+#14 DONE 73.3s
+
+#15 [runner 4/6] COPY --from=builder /app/public ./public
+#15 ERROR: failed to calculate checksum of ref qj7f84gxasayr6hn0xtc040a0::rx0he59tvc5gqph3qtym8mg3a: "/app/public": not found
+------
+ > [runner 4/6] COPY --from=builder /app/public ./public:
+------
+docker : 
+Dockerfile:25
+En línea: 1 
+Carácter: 1
++ docker compose up 
+--build -d 2>&1 | 
+Out-File -FilePath 
+docker_log.txt ...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (Dockerf   
+ ile:25:String) [    
+], RemoteExcepti    
+on
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+
+--------------------
+
+  23 |         
+adduser  --system 
+--uid 1001 nextjs
+
+  24 |     
+
+  25 | >>> COPY 
+--from=builder 
+/app/public ./public
+
+  26 |     COPY 
+--from=builder --chow
+n=nextjs:nodejs /app/
+.next/standalone ./
+
+  27 |     COPY 
+--from=builder --chow
+n=nextjs:nodejs 
+/app/.next/static 
+./.next/static
+
+--------------------
+
+failed to solve: 
+failed to compute 
+cache key: failed to 
+calculate checksum 
+of ref qj7f84gxasayr6
+hn0xtc040a0::rx0he59t
+vc5gqph3qtym8mg3a: 
+"/app/public": not 
+found
+

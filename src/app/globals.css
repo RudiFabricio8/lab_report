@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -14,12 +12,9 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
   font-feature-settings: "rlig" 1, "calt" 1;
 }
 
@@ -28,20 +23,17 @@ body {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--secondary);
   border-radius: 4px;
   opacity: 0.5;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
 }

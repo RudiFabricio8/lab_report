@@ -11,7 +11,7 @@ export const searchSchema = z.object({
 export type SearchParams = z.infer<typeof searchSchema>;
 
 export const dateRangeSchema = searchSchema.extend({
-  startDate: z.string().date().optional(), // YYYY-MM-DD
+  startDate: z.string().date().optional(),
   endDate:   z.string().date().optional(),
 });
 

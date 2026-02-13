@@ -1,17 +1,14 @@
--- ============================================
 -- REPORTS_VW.SQL - Vistas para Reportes
--- ============================================
+
 -- Equipo: Rudi Fabricio Martínez Jaimes
 -- Fecha: 2026-02-09
 -- Dominio: E-Commerce (Ventas, Productos, Usuarios)
--- ============================================
 
--- ============================================
 -- VIEW 1: vw_ventas_por_categoria
 -- Grain: Una fila por categoría
 -- Métricas: total vendido, cantidad de órdenes, % del total
 -- Técnicas: SUM, COUNT, GROUP BY, HAVING, campo calculado
--- ============================================
+
 CREATE OR REPLACE VIEW vw_ventas_por_categoria AS
 SELECT
     c.id            AS categoria_id,
@@ -32,12 +29,11 @@ ORDER BY monto_total DESC;
 
 -- VERIFY: SELECT * FROM vw_ventas_por_categoria;
 
--- ============================================
 -- VIEW 2: vw_productos_mas_vendidos
 -- Grain: Una fila por producto
 -- Métricas: unidades vendidas, ingresos, ranking
 -- Técnicas: SUM, COUNT, GROUP BY, HAVING, ROW_NUMBER() OVER (Window Function)
--- ============================================
+
 CREATE OR REPLACE VIEW vw_productos_mas_vendidos AS
 SELECT
     ROW_NUMBER() OVER (ORDER BY SUM(od.cantidad) DESC) AS ranking,
@@ -57,12 +53,11 @@ ORDER BY unidades_vendidas DESC;
 
 -- VERIFY: SELECT * FROM vw_productos_mas_vendidos;
 
--- ============================================
 -- VIEW 3: vw_usuarios_con_compras
 -- Grain: Una fila por usuario
 -- Métricas: total de órdenes, gasto total, gasto promedio, nivel
 -- Técnicas: SUM, COUNT, AVG, COALESCE, CASE
--- ============================================
+
 CREATE OR REPLACE VIEW vw_usuarios_con_compras AS
 SELECT
     u.id          AS usuario_id,
@@ -85,12 +80,11 @@ ORDER BY gasto_total DESC;
 
 -- VERIFY: SELECT * FROM vw_usuarios_con_compras;
 
--- ============================================
 -- VIEW 4: vw_ordenes_por_status
 -- Grain: Una fila por status
 -- Métricas: cantidad de órdenes, monto total, monto promedio, % del total
 -- Técnicas: CTE (WITH), COUNT, SUM, AVG, CASE, campo calculado %
--- ============================================
+
 CREATE OR REPLACE VIEW vw_ordenes_por_status AS
 WITH resumen AS (
     SELECT
@@ -124,12 +118,11 @@ ORDER BY r.monto_total DESC;
 
 -- VERIFY: SELECT * FROM vw_ordenes_por_status;
 
--- ============================================
 -- VIEW 5: vw_resumen_diario
 -- Grain: Una fila por fecha (día)
 -- Métricas: órdenes del día, ingreso del día, ingreso acumulado
 -- Técnicas: SUM, COUNT, GROUP BY, SUM() OVER (ORDER BY) — Window Function
--- ============================================
+
 CREATE OR REPLACE VIEW vw_resumen_diario AS
 SELECT
     DATE(o.created_at)   AS fecha,
@@ -142,6 +135,3 @@ ORDER BY fecha;
 
 -- VERIFY: SELECT * FROM vw_resumen_diario;
 
--- ============================================
--- FIN DE VIEWS
--- ============================================

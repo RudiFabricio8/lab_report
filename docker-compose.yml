@@ -10,7 +10,7 @@ services:
       # Pasamos la contraseña del usuario app para que el script de init la pueda usar
       APP_READER_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "${DB_PORT}:5432"
+      - "5434:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./db:/docker-entrypoint-initdb.d/sql:ro

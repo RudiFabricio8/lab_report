@@ -1,7 +1,7 @@
 import { query } from './db';
 import { SearchParams } from './schemas';
 
-/* ── Tipos de Datos (Interface matching VIEW columns) ── */
+/* ── Tipos de Datos ── */
 
 export interface VentaCategoria {
   categoria_id: number;
@@ -43,7 +43,7 @@ export interface OrdenStatus {
 }
 
 export interface ResumenDiario {
-  fecha: string; // Date string from DB
+  fecha: string;
   ordenes_del_dia: number;
   ingreso_del_dia: number;
   ingreso_acumulado: number;

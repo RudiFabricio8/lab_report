@@ -1,13 +1,13 @@
--- ============================================
 -- INDEXES.SQL - Índices Adicionales
--- ============================================
+
 -- Equipo: Rudi Fabricio Martínez Jaimes
+
 -- Fecha: 2026-02-09
--- ============================================
+
 -- Nota: schema.sql ya define:
 --   idx_ordenes_usuario_id, idx_productos_categoria_id, idx_ordenes_status
+
 -- Estos índices son ADICIONALES para optimizar las VIEWS.
--- ============================================
 
 -- Índice 1: Optimiza JOINs entre orden_detalles y productos
 -- Usado por: vw_ventas_por_categoria, vw_productos_mas_vendidos
@@ -23,7 +23,3 @@ CREATE INDEX IF NOT EXISTS idx_ordenes_created_at
 -- Usado por: consultas de productos activos
 CREATE INDEX IF NOT EXISTS idx_productos_activo
     ON productos(activo);
-
--- ============================================
--- FIN DE ÍNDICES
--- ============================================
