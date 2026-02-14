@@ -228,13 +228,4 @@ open http://localhost:3000
 docker compose logs -f
 ```
 
----
 
-## 📌 Notas Finales
-
-- **Ponderación SQL (40%)**: Las 5 views usan CTE, Window Functions, HAVING, CASE, campos calculados. Todas soportan análisis a grano fino.
-- **Ponderación Next.js (15%)**: 5 pantallas dinámicas, fetching seguro, filtros + paginación + estados de carga.
-- **Ponderación Docker (10%)**: Un comando (`docker compose up --build`) levanta BD + App con init automático + healthcheck.
-- **Ponderación Defensa (35%)**: Explica cualquier view sin leer; muestra EXPLAIN ANALYZE; habla de seguridad + IA.
-
-🎯 **Objetivo cumplido**: Dashboard de reportes e-commerce con SQL avanzado, Next.js limpio y Docker reproducible.
